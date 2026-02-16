@@ -34,16 +34,42 @@
         @keyframes runAcross { 0% { left: -300px; } 100% { left: 110vw; } }
         @keyframes gallop { 0% { transform: scaleX(-1) translateY(0) rotate(0deg); } 100% { transform: scaleX(-1) translateY(-20px) rotate(5deg); } }
 
-        /* --- 3. NÚT LOA --- */
+        /* --- 3. NÚT LOA & GỢI Ý --- */
         .sound-control {
             position: fixed; top: 20px; right: 20px;
-            width: 25px; height: 25px;
-            background: rgba(0, 0, 0, 0.5); border: 2px solid #ffd700; border-radius: 50%;
+            width: 40px; height: 40px; /* To hơn chút */
+            background: rgba(0, 0, 0, 0.6); border: 2px solid #ffd700; border-radius: 50%;
             display: flex; justify-content: center; align-items: center;
-            font-size: 20px; cursor: pointer; z-index: 100;
+            font-size: 22px; cursor: pointer; z-index: 200; /* Z-index cao nhất */
             transition: transform 0.2s; animation: pulse-btn 2s infinite;
         }
-        @keyframes pulse-btn { 0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(255, 215, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); } }
+        
+        /* CSS MỚI CHO CHÚ THÍCH LOA (CỰC KỲ NỔI BẬT) */
+        .speaker-hint {
+            position: fixed; top: 25px; right: 75px; /* Đẩy sang trái nút loa */
+            z-index: 200; /* Cao ngang nút loa */
+            color: #fff; font-size: 14px; font-weight: bold;
+            background: #d00000; /* Nền đỏ đậm */
+            padding: 8px 15px; border-radius: 30px;
+            border: 2px solid #ffd700; /* Viền vàng */
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.8);
+            pointer-events: none; 
+            display: flex; align-items: center; gap: 5px;
+            animation: hint-bounce 1s infinite alternate;
+            white-space: nowrap; /* Không xuống dòng */
+        }
+        /* Mũi tên chỉ vào loa */
+        .speaker-hint::after {
+            content: '➡️';
+            font-size: 18px;
+        }
+
+        @keyframes hint-bounce {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-5px); } /* Chuyển động qua lại để gây chú ý */
+        }
+
+        @keyframes pulse-btn { 0% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); } }
 
         /* --- 4. BAO LÌ XÌ --- */
         #envelope {
@@ -107,22 +133,29 @@
         /* --- CSS MỚI CHO PHẦN ẢNH VÀ CAPTION --- */
         #extra-image-container {
             display: none; margin-bottom: 20px;
-            animation: fadeInImage 1s ease-in-out;
         }
+
         .my-custom-img {
             width: 100%; max-width: 280px;
             border-radius: 10px; border: 3px solid #d00000;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             display: block; margin: 0 auto;
+            
+            /* HIỆU ỨNG TỪ GIỮA RA (ZOOM IN) */
+            transform: scale(0); opacity: 0;
+            animation: zoomInCenter 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
+
+        @keyframes zoomInCenter {
+            0% { transform: scale(0); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
         .img-caption {
             color: #d00000; font-size: 16px;
             font-weight: bold; font-style: italic;
             margin-top: 10px; text-shadow: 0px 0px 1px rgba(255, 215, 0, 0.8);
-        }
-        @keyframes fadeInImage {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+            min-height: 24px; 
         }
 
         .btn-lucky {
@@ -133,11 +166,19 @@
             border: 2px solid #fff; cursor: pointer;
             box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
             font-size: 16px; transition: transform 0.2s;
-            animation: pulse-btn 2s infinite;
+            
+            /* Animation nhấp nháy mạnh gây chú ý */
+            animation: pulse-attention 1s infinite;
         }
         .btn-lucky:hover { transform: scale(1.05); }
 
-        /* --- 6. MÀN HÌNH QR CODE (NỀN BLUR) --- */
+        @keyframes pulse-attention {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7); }
+            50% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 215, 0, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
+        }
+
+        /* --- 6. MÀN HÌNH QR CODE --- */
         #qrOverlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(100, 0, 0, 0.5); 
@@ -145,7 +186,6 @@
             z-index: 2000;
             justify-content: center; align-items: center; flex-direction: column;
             animation: fadeIn 0.5s;
-            /* Thêm thanh cuộn nếu màn hình dọc quá ngắn */
             overflow-y: auto; padding: 20px 0;
         }
         
@@ -162,7 +202,7 @@
             color: #ffd700; font-size: 28px; font-weight: bold; 
             margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-            margin-top: 50px; /* Tránh bị nút close che */
+            margin-top: 50px; 
         }
 
         .qr-img-large {
@@ -187,33 +227,19 @@
         }
         .btn-download-bottom:hover { transform: scale(1.05); background: #b30000; }
 
-        /* --- STYLES MỚI CHO LỜI NHẮN CUỐI CÙNG --- */
         .final-message {
-            margin-top: 30px;
-            margin-bottom: 50px;
-            font-style: italic;
-            color: #fff;
-            font-size: 15px;
-            max-width: 85%;
-            line-height: 1.6;
+            margin-top: 30px; margin-bottom: 50px;
+            font-style: italic; color: #fff; font-size: 15px;
+            max-width: 85%; line-height: 1.6;
             text-shadow: 0 1px 2px rgba(0,0,0,0.8);
-            
-            /* Giao diện khung note */
             background: rgba(0, 0, 0, 0.4);
             border: 1px dashed #ffd700;
-            padding: 15px 20px;
-            border-radius: 15px;
-            
-            /* Animation */
+            padding: 15px 20px; border-radius: 15px;
             opacity: 0;
             animation: fadeMsg 2s ease-in-out forwards;
             animation-delay: 0.5s;
         }
-
-        @keyframes fadeMsg {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeMsg { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- 7. MÀN HÌNH CHỜ (XÓC THẺ) --- */
         #shakingModal {
@@ -348,17 +374,14 @@
         <div class="btn-close-qr" onclick="closeQR()">×</div>
         <div class="qr-title-large">Lì xì may mắn</div>
         <img src="qr-viettel.jpg" alt="QR Code" class="qr-img-large">
-        <div class="qr-note">(Quét bằng APP ZaloPay nha)</div>
+        <div class="qr-note">(Quét bằng APP Viettel Money nha)</div>
         <a href="qr-viettel.jpg" download="LiXi_Tet_2026.jpg" class="btn-download-bottom">
             <span>⬇️</span> Tải mã QR về
         </a>
-        
         <div class="final-message">
             "A đã dành cả ngày hôm nay để thực hiện những dòng code này với hy vọng e sẽ thích nó. Mọi muộn phiền của năm cũ hãy cho qua hết e nhé, để đón những điều mới mẻ trong năm nay. Chúc e ngủ ngon!"
         </div>
     </div>
-
-    <div id="soundBtn" class="sound-control" onclick="toggleSound(event)">🔇</div>
 
     <div class="horse-container">
         <div class="horse-unit horse-red galloping">🐎</div>
@@ -383,13 +406,16 @@
 
         <div id="extra-image-container">
             <img src="nam.jpg" alt="Mạnh mẽ như ngựa" class="my-custom-img">
-            <div class="img-caption">Hãy luôn mạnh mẽ như 1 chú ngựa và tiến về phía trước nha</div>
+            <div id="caption-text" class="img-caption"></div>
         </div>
 
         <div id="btnLucky" class="btn-lucky" onclick="startShaking()">
             ✨ Rút Quẻ Lộc Đầu Năm 🧧
         </div>
     </div>
+
+    <div id="speakerHint" class="speaker-hint">Click mở loa để nghe nhạc nha</div>
+    <div id="soundBtn" class="sound-control" onclick="toggleSound(event)">🔇</div>
 
     <audio id="tetMusic" loop>
         <source src="nhac-tet.mp3" type="audio/mpeg">
@@ -398,19 +424,27 @@
     <script>
         var music = document.getElementById('tetMusic');
         var soundBtn = document.getElementById('soundBtn');
+        var speakerHint = document.getElementById('speakerHint'); // Gợi ý loa
         var isPlaying = false;
 
-        // --- CẤU HÌNH NỘI DUNG 2 PHẦN ---
+        // --- NỘI DUNG CHỮ ---
         const textPart1 = "Chúc em 1 năm mới 2026 sức khỏe - bình an - may mắn - mọi điều đều được như ý - mọi dự định kế hoạch đều được suôn sẻ, thuận lợi! Anh xin lỗi em nhiều !!!";
         const textPart2 = "2026 - Thành công rực rỡ";
-        
+        const textCaption = "Hãy luôn mạnh mẽ như 1 chú ngựa và tiến về phía trước nha";
+
         const typeSpeed = 50; 
         let charIndex = 0;
         let isTypingPart2 = false; 
 
+        // Biến chạy cho caption
+        let captionIndex = 0;
+        const captionSpeed = 60; // Tốc độ gõ caption chậm hơn chút cho dễ đọc
+
         window.onload = function() {
             setInterval(createFlower, 350);
             setInterval(createFirework, 800);
+            
+            // Cố gắng phát nhạc nhưng KHÔNG ẨN HINT ngay lập tức để người dùng kịp nhìn thấy
             music.play().then(() => { 
                 isPlaying = true; updateSoundIcon(true);
             }).catch(() => {
@@ -419,25 +453,37 @@
         };
 
         function updateSoundIcon(playing) {
-            if (playing) { soundBtn.innerHTML = '🔊'; soundBtn.style.animation = 'none'; } 
-            else { soundBtn.innerHTML = '🔇'; soundBtn.style.animation = 'pulse-btn 2s infinite'; }
+            if (playing) { 
+                soundBtn.innerHTML = '🔊'; soundBtn.style.animation = 'none'; 
+                // Chỉ ẩn hint khi người dùng chủ động tương tác hoặc khi vào màn hình chính
+            } 
+            else { 
+                soundBtn.innerHTML = '🔇'; soundBtn.style.animation = 'pulse-btn 2s infinite'; 
+            }
         }
 
         function toggleSound(event) {
             event.stopPropagation();
+            // CHỈ ẨN GỢI Ý KHI BẤM VÀO LOA
+            speakerHint.style.display = 'none';
+            
             if (music.paused) { music.play(); isPlaying = true; updateSoundIcon(true); } 
             else { music.pause(); isPlaying = false; updateSoundIcon(false); }
         }
 
         function playAudioForce() {
+            // Hàm này chạy khi bấm vào Body.
+            // Ta không ẩn Hint ở đây nữa để tránh việc chạm nhầm làm mất chữ.
             if (music.paused) {
-                music.play().then(() => { isPlaying = true; updateSoundIcon(true); }).catch((e) => console.log(e));
+                music.play().then(() => { 
+                    isPlaying = true; updateSoundIcon(true); 
+                }).catch((e) => console.log(e));
             }
         }
 
-        // --- HÀM CHẠY CHỮ THÔNG MINH ---
         function openGift() {
             playAudioForce();
+            speakerHint.style.display = 'none'; // Ẩn gợi ý khi mở bao lì xì
             document.getElementById('envelope').style.display = 'none';
             document.getElementById('content').style.display = 'block';
             typeWriter();
@@ -474,16 +520,41 @@
                 } else {
                     pen.style.display = "none";
                     
-                    const imgContainer = document.getElementById("extra-image-container");
-                    imgContainer.style.display = "block";
-
-                    const btnLucky = document.getElementById("btnLucky");
-                    btnLucky.style.display = "inline-block";
-
-                    setTimeout(() => {
-                        imgContainer.scrollIntoView({ behavior: "smooth", block: "center" });
-                    }, 100);
+                    // --- KÍCH HOẠT HIỂN THỊ ẢNH VÀ CHẠY CAPTION ---
+                    showImageAndCaption();
                 }
+            }
+        }
+
+        function showImageAndCaption() {
+            const imgContainer = document.getElementById("extra-image-container");
+            imgContainer.style.display = "block"; // Ảnh sẽ tự động Zoom In nhờ CSS Animation
+            
+            // Scroll xuống ảnh
+            setTimeout(() => {
+                imgContainer.scrollIntoView({ behavior: "smooth", block: "center" });
+            }, 100);
+
+            // Bắt đầu chạy chữ Caption song song
+            typeWriterCaption();
+        }
+
+        function typeWriterCaption() {
+            const captionContainer = document.getElementById("caption-text");
+            
+            if (captionIndex < textCaption.length) {
+                captionContainer.innerHTML += textCaption.charAt(captionIndex);
+                captionIndex++;
+                setTimeout(typeWriterCaption, captionSpeed);
+            } else {
+                // KHI CAPTION CHẠY XONG -> HIỆN BUTTON
+                const btnLucky = document.getElementById("btnLucky");
+                btnLucky.style.display = "inline-block";
+                
+                // Focus nhẹ xuống button để người dùng thấy
+                setTimeout(() => {
+                    btnLucky.scrollIntoView({ behavior: "smooth", block: "center" });
+                }, 200);
             }
         }
 
