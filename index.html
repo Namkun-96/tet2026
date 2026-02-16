@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gieo Quẻ Đầu Năm 2026</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧧</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    
     <style>
         /* --- 1. CẤU HÌNH CHUNG --- */
         body {
@@ -335,11 +337,39 @@
             background-image: linear-gradient(#fdf5e6 1px, transparent 1px), linear-gradient(90deg, #fdf5e6 1px, transparent 1px);
             background-size: 20px 20px;
         }
+        
+        /* --- SỬA CLASS NÀY ĐỂ CHỮ NẰM TRÊN 1 DÒNG VÀ ĐẸP HƠN --- */
         .fortune-rank {
-            display: inline-block; font-size: 20px; font-weight: bold; color: #d00000;
-            border: 2px solid #d00000; padding: 5px 15px; border-radius: 20px;
-            margin-bottom: 20px; text-transform: uppercase;
+            display: inline-block; 
+            font-size: 24px; /* Chữ to hơn chút */
+            font-weight: bold; 
+            
+            /* Dùng font mềm mại */
+            font-family: 'Dancing Script', cursive, sans-serif;
+            
+            /* Tạo màu chữ gradient ánh kim */
+            background: linear-gradient(to right, #d00000, #ff0000);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            
+            border: 2px solid #d00000; 
+            padding: 5px 20px; 
+            border-radius: 50px; /* Bo tròn mềm mại */
+            margin-bottom: 20px; 
+            text-transform: uppercase;
+            
+            /* Ép chữ nằm trên 1 dòng */
+            white-space: nowrap; 
+            
+            /* Hiệu ứng nhịp tim nhẹ nhàng */
+            animation: heartbeat 2s infinite;
         }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
         .fortune-content p {
             font-size: 16px; margin: 10px 0; font-weight: 600;
             border-bottom: 1px dashed #ccc; padding-bottom: 5px;
@@ -464,7 +494,8 @@
         var speakerHint = document.getElementById('speakerHint'); 
         var isPlaying = false;
 
-        const textPart1 = "Chúc em một năm mới 2026 sức khỏe - hạnh phúc - bình an - may mắn - mọi điều đều được như ý - mọi dự định kế hoạch đều được được thực hiện suôn sẻ, thuận lợi!";
+        // --- CẬP NHẬT NỘI DUNG CHỮ MỚI ---
+        const textPart1 = "Chúc em một năm mới 2026 sức khỏe - hạnh phúc - bình an - may mắn - mọi điều đều được như ý - mọi dự định kế hoạch đều được thực hiện suôn sẻ, thuận lợi!";
         const textPart2 = "2026 - Mã đáo thành công";
         const textCaption = "Hãy luôn mạnh mẽ như 1 chú ngựa và tiến về phía trước nha";
 
@@ -599,13 +630,12 @@
             document.getElementById('content').style.display = 'block';
         }
 
-        // --- HÀM LIGHTBOX MỚI (FIX LỖI Z-INDEX) ---
         function openLightbox(imgSrc) {
             const lightbox = document.getElementById("qrLightbox");
             const lightboxImg = document.getElementById("lightboxImg");
             
-            lightboxImg.src = imgSrc; // Gán ảnh
-            lightbox.style.display = "flex"; // Hiển thị khung
+            lightboxImg.src = imgSrc; 
+            lightbox.style.display = "flex"; 
         }
 
         function closeLightbox() {
@@ -654,4 +684,3 @@
     </script>
 </body>
 </html>
-
