@@ -195,11 +195,16 @@
         }
         .btn-close-qr:hover { opacity: 1; transform: scale(1.1); }
 
-        .qr-title-large { 
-            color: #ffd700; font-size: 28px; font-weight: bold; 
-            margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
-            margin-top: 50px; 
+.qr-title-large { 
+    color: #ffd700; 
+    font-size: 28px; 
+    font-weight: bold; 
+    margin-bottom: 20px; 
+    /* Đã xóa text-transform: uppercase; */
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.6);
+    margin-top: 50px; 
+}
         }
 
         .qr-img-large {
@@ -438,11 +443,11 @@
 
     <div id="qrOverlay">
         <div class="btn-close-qr" onclick="closeQR()">×</div>
-        <div class="qr-title-large">Lì xì may mắn</div>
+        <div class="qr-title-large">Lì xì tặng em</div>
         
         <img src="qr-viettel.jpg" alt="QR Code" class="qr-img-large" onclick="openLightbox('qr-viettel.jpg')">
         
-        <div class="qr-note">(Quét bằng APP ZaloPay nha<br>Chạm vào mã QR để phóng to)</div>
+        <div class="qr-note">(E hãy quét bằng APP ZaloPay nha<br>Chạm vào mã QR để phóng to)</div>
         <a href="qr-viettel.jpg" download="LiXi_Tet_2026.jpg" class="btn-download-bottom">
             <span>⬇️</span> Tải mã QR về
         </a>
@@ -685,6 +690,7 @@
     </script>
 </body>
 </html>
+
 
 
 
