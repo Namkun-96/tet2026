@@ -77,9 +77,24 @@
 
         h1.title-tet { color: #d00000; font-size: 24px; font-weight: bold; margin-bottom: 5px; }
         .horse-icons-top { font-size: 28px; margin: 0px 0 10px 0; }
+        
+        /* CSS CHO LỜI CHÚC & BÚT */
         .wishes { 
             font-size: 15px; line-height: 1.6; color: #333; font-style: italic; font-weight: 600; 
             background: #fff; padding: 15px; border-radius: 10px; border: 1px dashed #d00000; margin-bottom: 20px;
+            text-align: left; /* Căn trái để hiệu ứng viết chữ đẹp hơn */
+            min-height: 160px; /* Tăng chiều cao khung vì nội dung dài hơn */
+            overflow-y: auto; /* Nếu dài quá thì cuộn */
+        }
+        
+        .writing-pen {
+            display: inline-block; font-size: 20px;
+            margin-left: 5px;
+            animation: write-move 0.3s infinite alternate;
+        }
+        @keyframes write-move {
+            0% { transform: rotate(0deg) translateY(0); }
+            100% { transform: rotate(15deg) translateY(-5px); }
         }
 
         .btn-lucky {
@@ -93,10 +108,9 @@
         }
         .btn-lucky:hover { transform: scale(1.05); }
 
-        /* --- 6. MÀN HÌNH QR CODE (NỀN BLUR + GIỮ NGUYÊN BACKGROUND) --- */
+        /* --- 6. MÀN HÌNH QR CODE (NỀN BLUR) --- */
         #qrOverlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            /* Nền màu đỏ mờ + hiệu ứng Blur kính */
             background: rgba(100, 0, 0, 0.5); 
             backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
             z-index: 2000;
@@ -140,35 +154,25 @@
         }
         .btn-download-bottom:hover { transform: scale(1.05); background: #b30000; }
 
-        /* --- 7. MÀN HÌNH CHỜ (XÓC THẺ) - THIẾT KẾ LẠI --- */
+        /* --- 7. MÀN HÌNH CHỜ (XÓC THẺ) --- */
         #shakingModal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.7); z-index: 3000;
             justify-content: center; align-items: center; flex-direction: column;
         }
-        
-        /* Ống xăm to hơn, đẹp hơn */
         .fortune-container {
             width: 100px; height: 160px;
             background: linear-gradient(to right, #b30000, #d00000, #b30000);
-            border: 4px solid #ffd700;
-            border-radius: 10px 10px 30px 30px;
-            position: relative;
-            animation: shake-hard 0.4s ease-in-out infinite; 
+            border: 4px solid #ffd700; border-radius: 10px 10px 30px 30px;
+            position: relative; animation: shake-hard 0.4s ease-in-out infinite; 
             box-shadow: 0 10px 30px rgba(0,0,0,0.6);
         }
-        /* Miệng ống */
         .fortune-container::before {
             content: ''; position: absolute; top: -15px; left: 5px;
             width: 82px; height: 25px;
-            background: #800000; border: 4px solid #ffd700;
-            border-radius: 50%; z-index: 2;
+            background: #800000; border: 4px solid #ffd700; border-radius: 50%; z-index: 2;
         }
-        /* Thẻ bên trong */
-        .sticks-bundle {
-            position: absolute; top: -40px; left: 20px;
-            width: 60px; height: 60px; z-index: 1;
-        }
+        .sticks-bundle { position: absolute; top: -40px; left: 20px; width: 60px; height: 60px; z-index: 1; }
         .stick-sample {
             position: absolute; width: 10px; height: 80px;
             background: #f0e68c; border-radius: 5px; border: 1px solid #d4a017;
@@ -176,7 +180,6 @@
         .stick-sample:nth-child(1) { left: 10px; transform: rotate(-15deg); top: 10px; }
         .stick-sample:nth-child(2) { left: 25px; transform: rotate(0deg); top: 0px; }
         .stick-sample:nth-child(3) { left: 40px; transform: rotate(15deg); top: 10px; }
-
         @keyframes shake-hard {
             0% { transform: rotate(0deg) translateY(0); }
             25% { transform: rotate(-10deg) translateY(-10px); }
@@ -184,72 +187,50 @@
             75% { transform: rotate(10deg) translateY(10px); }
             100% { transform: rotate(0deg) translateY(0); }
         }
-        
         .shaking-text {
             color: #ffd700; font-size: 22px; font-weight: bold; margin-top: 40px;
             text-shadow: 0 0 10px #d00000; animation: blink 1s infinite;
         }
 
-        /* --- 8. MÀN HÌNH KẾT QUẢ (THẺ TRE - ĐÃ SỬA LỖI UI) --- */
+        /* --- 8. MÀN HÌNH KẾT QUẢ --- */
         #resultModal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0, 0, 0, 0.7); z-index: 3000;
             justify-content: center; align-items: center;
             animation: fadeIn 0.3s;
         }
-
-        /* THẺ TRE LỚN (ĐẠI TỰ) - KHÔNG DÙNG VIẾT DỌC NỮA */
         .bamboo-card {
-            width: 300px; /* Rộng ra để chứa chữ */
-            min-height: 450px;
-            background: #fdf5e6; /* Màu giấy cũ/gỗ sáng */
-            border: 8px solid #d4a017; /* Viền vàng */
-            border-radius: 15px;
-            position: relative;
-            display: flex; flex-direction: column; align-items: center;
-            padding: 0;
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
+            width: 300px; min-height: 450px;
+            background: #fdf5e6; border: 8px solid #d4a017; border-radius: 15px;
+            position: relative; display: flex; flex-direction: column; align-items: center;
+            padding: 0; box-shadow: 0 0 50px rgba(255, 215, 0, 0.5);
             transform: scale(0.1); opacity: 0;
             animation: card-reveal 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
             overflow: hidden;
         }
-
-        /* Header thẻ */
         .card-header {
-            width: 100%; height: 70px;
-            background: #d00000;
+            width: 100%; height: 70px; background: #d00000;
             display: flex; justify-content: center; align-items: center;
             color: #ffd700; font-size: 35px; font-weight: 900;
-            border-bottom: 4px solid #d4a017;
-            text-transform: uppercase;
+            border-bottom: 4px solid #d4a017; text-transform: uppercase;
         }
-
-        /* Thân thẻ */
         .card-body {
             padding: 20px; width: 100%; box-sizing: border-box;
             text-align: center; color: #5c4033;
             background-image: linear-gradient(#fdf5e6 1px, transparent 1px), linear-gradient(90deg, #fdf5e6 1px, transparent 1px);
             background-size: 20px 20px;
         }
-
         .fortune-rank {
-            display: inline-block;
-            font-size: 20px; font-weight: bold; color: #d00000;
+            display: inline-block; font-size: 20px; font-weight: bold; color: #d00000;
             border: 2px solid #d00000; padding: 5px 15px; border-radius: 20px;
             margin-bottom: 20px; text-transform: uppercase;
         }
-
         .fortune-content p {
             font-size: 16px; margin: 10px 0; font-weight: 600;
             border-bottom: 1px dashed #ccc; padding-bottom: 5px;
         }
         .fortune-content b { color: #d00000; font-size: 18px; }
-
-        .poem {
-            margin-top: 15px; font-style: italic; color: #800000; font-weight: bold;
-        }
-
-        /* Nút Nhận Lộc */
+        .poem { margin-top: 15px; font-style: italic; color: #800000; font-weight: bold; }
         .btn-get-money-card {
             margin-top: auto; margin-bottom: 20px;
             background: linear-gradient(to right, #d00000, #ff0000); 
@@ -258,7 +239,6 @@
             box-shadow: 0 4px 10px rgba(0,0,0,0.3); font-size: 16px;
             animation: pulse-btn 2s infinite;
         }
-
         @keyframes card-reveal {
             0% { transform: translateY(200px) scale(0.5); opacity: 0; }
             100% { transform: translateY(0) scale(1); opacity: 1; }
@@ -289,25 +269,16 @@
 
     <div id="resultModal">
         <div class="bamboo-card">
-            <div class="card-header">
-                <div>Lộc</div>
-            </div>
-            
+            <div class="card-header"><div>Lộc</div></div>
             <div class="card-body">
                 <div class="fortune-rank">Thượng Thượng Cát</div>
-                
                 <div class="fortune-content">
                     <p><b>🌸 Sự Nghiệp:</b><br>Quý nhân phù trợ, thăng tiến.</p>
                     <p><b>❤️ Tình Duyên:</b><br>Viên mãn, hạnh phúc trọn vẹn.</p>
                     <p><b>💰 Tài Lộc:</b><br>Tiền vào như nước, sung túc.</p>
                 </div>
-
-                <div class="poem">
-                    "Bính Ngọ năm mới phát tài<br>
-                    Bình an, may mắn, lộc lai đầy nhà"
-                </div>
+                <div class="poem">"Bính Ngọ năm mới phát tài<br>Bình an, may mắn, lộc lai đầy nhà"</div>
             </div>
-
             <button class="btn-get-money-card" onclick="revealQR()">Nhận Lộc Ngay 🧧</button>
         </div>
     </div>
@@ -315,11 +286,8 @@
     <div id="qrOverlay">
         <div class="btn-close-qr" onclick="closeQR()">×</div>
         <div class="qr-title-large">Lì xì may mắn</div>
-        
         <img src="qr-viettel.jpg" alt="QR Code" class="qr-img-large">
-        
         <div class="qr-note">(Quét bằng APP Viettel Money nha)</div>
-        
         <a href="qr-viettel.jpg" download="LiXi_Tet_2026.jpg" class="btn-download-bottom">
             <span>⬇️</span> Tải mã QR về
         </a>
@@ -344,7 +312,8 @@
         <div class="horse-icons-top">🐎 🐎 🐎</div>
         
         <div class="wishes">
-            "Chúc em 1 năm mới 2026 sức khỏe - bình an - may mắn - mọi điều đều được như ý - mọi dự định kế hoạch đều được suôn sẻ, thuận lợi"
+            <span id="type-text"></span>
+            <span id="writing-pen" class="writing-pen">🖌️</span>
         </div>
 
         <div class="btn-lucky" onclick="startShaking()">
@@ -360,6 +329,11 @@
         var music = document.getElementById('tetMusic');
         var soundBtn = document.getElementById('soundBtn');
         var isPlaying = false;
+
+        // --- CẤU HÌNH NỘI DUNG MỚI (CÓ ICON BUỒN) ---
+        const fullText = "Chúc em 1 năm mới 2026 sức khỏe - bình an - may mắn - mọi điều đều được như ý - mọi dự định kế hoạch đều được suôn sẻ, thuận lợi. Cho anh xin lỗi vì những lúc đã không giữ được bình tĩnh, nói năng và hành động thiếu kiểm soát khiến em phải suy nghĩ, phải buồn 😔. Xin lỗi em nhiều !!!";
+        const typeSpeed = 50; 
+        let charIndex = 0;
 
         window.onload = function() {
             setInterval(createFlower, 350);
@@ -388,18 +362,29 @@
             }
         }
 
+        // --- HÀM MỞ QUÀ & CHẠY CHỮ ---
         function openGift() {
             playAudioForce();
             document.getElementById('envelope').style.display = 'none';
             document.getElementById('content').style.display = 'block';
+            
+            // Bắt đầu chạy chữ
+            typeWriter();
         }
 
-        // --- LOGIC XIN KEO & RÚT QUẺ ---
+        function typeWriter() {
+            if (charIndex < fullText.length) {
+                document.getElementById("type-text").innerHTML += fullText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, typeSpeed);
+            } else {
+                // Viết xong thì ẩn bút đi
+                document.getElementById("writing-pen").style.display = "none";
+            }
+        }
+
         function startShaking() {
-            // Hiện màn hình xóc thẻ
             document.getElementById('shakingModal').style.display = 'flex';
-            
-            // Sau 3 giây thì hiện kết quả
             setTimeout(function() {
                 document.getElementById('shakingModal').style.display = 'none';
                 document.getElementById('resultModal').style.display = 'flex';
@@ -407,22 +392,16 @@
         }
 
         function revealQR() {
-            // Ẩn modal kết quả
             document.getElementById('resultModal').style.display = 'none';
-            // Ẩn màn hình lời chúc (Content)
             document.getElementById('content').style.display = 'none';
-            // Hiện màn hình QR Overlay
             document.getElementById('qrOverlay').style.display = 'flex';
         }
 
         function closeQR() {
-            // Ẩn màn hình QR
             document.getElementById('qrOverlay').style.display = 'none';
-            // Hiện lại màn hình lời chúc để rút lại nếu muốn
             document.getElementById('content').style.display = 'block';
         }
 
-        // --- HIỆU ỨNG ---
         function createFlower() {
             const flower = document.createElement('div');
             flower.className = 'flower';
