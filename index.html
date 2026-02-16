@@ -125,7 +125,7 @@
             100% { transform: rotate(15deg) translateY(-5px); }
         }
 
-        /* --- CSS MỚI CHO PHẦN ẢNH VÀ CAPTION --- */
+        /* --- CSS CHO PHẦN ẢNH VÀ CAPTION --- */
         #extra-image-container {
             display: none; margin-bottom: 20px;
         }
@@ -136,29 +136,18 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             display: block; margin: 0 auto;
             
-            /* --- SỬA: HIỆU ỨNG CINE DREAMY (MỜ ẢO RỒI RÕ DẦN) --- */
+            /* HIỆU ỨNG CINE DREAMY */
             opacity: 0;
-            filter: blur(20px) brightness(1.2); /* Bắt đầu rất mờ và hơi sáng quá */
-            transform: scale(1.1); /* Hơi phóng to */
+            filter: blur(20px) brightness(1.2); 
+            transform: scale(1.1); 
             
             animation: cinematicReveal 3s ease-out forwards;
         }
 
         @keyframes cinematicReveal {
-            0% {
-                opacity: 0;
-                filter: blur(20px) brightness(1.5); /* Rất mờ, sáng rực */
-                transform: scale(1.15);
-            }
-            50% {
-                opacity: 0.8;
-                filter: blur(5px) brightness(1.1); /* Bớt mờ */
-            }
-            100% {
-                opacity: 1;
-                filter: blur(0) brightness(1); /* Rõ nét hoàn toàn */
-                transform: scale(1);
-            }
+            0% { opacity: 0; filter: blur(20px) brightness(1.5); transform: scale(1.15); }
+            50% { opacity: 0.8; filter: blur(5px) brightness(1.1); }
+            100% { opacity: 1; filter: blur(0) brightness(1); transform: scale(1); }
         }
 
         .img-caption {
@@ -169,7 +158,7 @@
         }
 
         .btn-lucky {
-            display: none; /* Mặc định ẩn */
+            display: none; 
             padding: 12px 30px;
             background: linear-gradient(to right, #ffd700, #fdb931);
             color: #d00000; font-weight: bold; border-radius: 50px;
@@ -184,7 +173,7 @@
             100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 215, 0, 0); }
         }
 
-        /* --- 6. MÀN HÌNH QR CODE (LIGHTBOX ZOOM) --- */
+        /* --- 6. MÀN HÌNH QR CODE VÀ ZOOM --- */
         #qrOverlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(100, 0, 0, 0.5); 
@@ -200,7 +189,7 @@
             color: #fff; font-size: 40px; cursor: pointer;
             opacity: 0.8; transition: 0.3s;
             text-shadow: 0 0 10px rgba(0,0,0,0.5);
-            z-index: 2005; /* Phải cao hơn lớp zoom */
+            z-index: 2005; 
         }
         .btn-close-qr:hover { opacity: 1; transform: scale(1.1); }
 
@@ -211,33 +200,44 @@
             margin-top: 50px; 
         }
 
-        /* QR Mặc định */
         .qr-img-large {
             width: 260px; height: 260px;
             border: 5px solid #ffd700; border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             background: white; margin-bottom: 10px;
-            cursor: zoom-in; /* Con trỏ hình kính lúp */
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: zoom-in;
+            transition: transform 0.2s;
+        }
+        .qr-img-large:hover { transform: scale(1.02); }
+
+        /* --- CSS CHO LIGHTBOX (PHÓNG TO ẢNH RIÊNG BIỆT) --- */
+        #qrLightbox {
+            display: none; 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); /* Nền đen đậm gần như tuyệt đối */
+            z-index: 9999; /* Z-index cao nhất hệ mặt trời */
+            justify-content: center; align-items: center; flex-direction: column;
+            animation: fadeIn 0.3s;
         }
 
-        /* Class khi Zoom QR lên */
-        .qr-img-large.is-zoomed {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%, -50%) scale(1.5);
+        .lightbox-img-content {
             width: auto; height: auto;
-            max-width: 90vw; max-height: 80vh;
-            z-index: 3000; /* Nổi lên trên cùng */
+            max-width: 90%; max-height: 80vh;
+            border: 3px solid #ffd700;
+            border-radius: 10px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.5);
+            animation: zoomInPopup 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: zoom-out;
-            border: 2px solid #fff;
-            box-shadow: 0 0 50px rgba(0,0,0,0.9);
         }
 
-        /* Nền đen mờ khi Zoom */
-        #zoomBackdrop {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 2999;
+        @keyframes zoomInPopup {
+            from { transform: scale(0.5); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .lightbox-hint-text {
+            color: #ccc; margin-top: 15px; font-style: italic; font-size: 14px;
+            animation: blink 2s infinite;
         }
 
         .qr-note {
@@ -400,20 +400,23 @@
         </div>
     </div>
 
-    <div id="zoomBackdrop" onclick="toggleZoomQR()"></div>
+    <div id="qrLightbox" onclick="closeLightbox()">
+        <img src="" id="lightboxImg" class="lightbox-img-content">
+        <div class="lightbox-hint-text">(Chạm để đóng)</div>
+    </div>
 
     <div id="qrOverlay">
         <div class="btn-close-qr" onclick="closeQR()">×</div>
         <div class="qr-title-large">Lì xì may mắn</div>
         
-        <img src="qr-viettel.jpg" alt="QR Code" class="qr-img-large" id="qrImage" onclick="toggleZoomQR()">
+        <img src="qr-viettel.jpg" alt="QR Code" class="qr-img-large" onclick="openLightbox('qr-viettel.jpg')">
         
         <div class="qr-note">(Chạm vào mã QR để phóng to)</div>
         <a href="qr-viettel.jpg" download="LiXi_Tet_2026.jpg" class="btn-download-bottom">
             <span>⬇️</span> Tải mã QR về
         </a>
         <div class="final-message">
-            "Anh đã dành cả ngày hôm nay để thực hiện những dòng code này với hy vọng em sẽ thích nó. Mọi muộn phiền của năm cũ hãy cho qua hết em nhé, để đón những điều mới mẻ trong năm nay. Anh xin lỗi em nhiều. Chúc em ngủ ngon!"
+            "A đã dành cả ngày hôm nay để thực hiện những dòng code này với hy vọng e sẽ thích nó. Mọi muộn phiền của năm cũ hãy cho qua hết e nhé, để đón những điều mới mẻ trong năm nay. Chúc e ngủ ngon!"
         </div>
     </div>
 
@@ -594,27 +597,19 @@
         function closeQR() {
             document.getElementById('qrOverlay').style.display = 'none';
             document.getElementById('content').style.display = 'block';
-            
-            // Nếu đang zoom thì tắt zoom đi
-            const qrImg = document.getElementById("qrImage");
-            const backdrop = document.getElementById("zoomBackdrop");
-            qrImg.classList.remove("is-zoomed");
-            backdrop.style.display = "none";
         }
 
-        // --- HÀM ZOOM QR CODE MỚI ---
-        function toggleZoomQR() {
-            const qrImg = document.getElementById("qrImage");
-            const backdrop = document.getElementById("zoomBackdrop");
+        // --- HÀM LIGHTBOX MỚI (FIX LỖI Z-INDEX) ---
+        function openLightbox(imgSrc) {
+            const lightbox = document.getElementById("qrLightbox");
+            const lightboxImg = document.getElementById("lightboxImg");
+            
+            lightboxImg.src = imgSrc; // Gán ảnh
+            lightbox.style.display = "flex"; // Hiển thị khung
+        }
 
-            // Toggle class 'is-zoomed'
-            if (qrImg.classList.contains("is-zoomed")) {
-                qrImg.classList.remove("is-zoomed");
-                backdrop.style.display = "none";
-            } else {
-                qrImg.classList.add("is-zoomed");
-                backdrop.style.display = "block";
-            }
+        function closeLightbox() {
+            document.getElementById("qrLightbox").style.display = "none";
         }
 
         function createFlower() {
