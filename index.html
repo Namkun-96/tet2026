@@ -63,101 +63,120 @@
         .click-hint { font-size: 18px; font-weight: bold; margin-top: 10px; animation: blink 1.5s infinite; }
         @keyframes blink { 50% { opacity: 0.5; } }
 
-        /* --- 5. POPUP NỘI DUNG --- */
+        /* --- 5. NỘI DUNG CHÍNH (LỜI CHÚC) --- */
         #content {
             display: none; background: #fffaf0;
-            padding: 20px; border-radius: 20px;
+            padding: 25px 20px; border-radius: 20px;
             box-shadow: 0 0 60px rgba(255, 204, 0, 0.9);
             width: 360px; max-width: 90%;
             border: 3px solid #d41414;
             position: relative; z-index: 20;
-            margin-bottom: 100px; /* Đẩy lên cao để tránh ngựa */
+            margin-bottom: 100px;
             animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         @keyframes popIn { 0% { opacity: 0; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1); } }
 
-        h1.title-tet { color: #d00000; font-size: 22px; font-weight: bold; margin-bottom: 5px; }
+        h1.title-tet { color: #d00000; font-size: 24px; font-weight: bold; margin-bottom: 5px; }
         .horse-icons-top { font-size: 28px; margin: 0px 0 10px 0; }
         .wishes { 
-            font-size: 14px; line-height: 1.5; color: #333; font-style: italic; font-weight: 600; 
-            background: #fff; padding: 10px; border-radius: 10px; border: 1px dashed #d00000; margin-bottom: 10px;
+            font-size: 15px; line-height: 1.6; color: #333; font-style: italic; font-weight: 600; 
+            background: #fff; padding: 15px; border-radius: 10px; border: 1px dashed #d00000; margin-bottom: 20px;
         }
 
-        /* --- NÚT XIN LỘC (MỚI) --- */
         .btn-lucky {
-            display: inline-block; padding: 8px 20px;
+            display: inline-block; padding: 12px 30px;
             background: linear-gradient(to right, #ffd700, #fdb931);
             color: #d00000; font-weight: bold; border-radius: 50px;
             border: 2px solid #fff; cursor: pointer;
-            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);
-            margin-bottom: 15px; font-size: 14px;
-            transition: transform 0.2s;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.5);
+            font-size: 16px; transition: transform 0.2s;
+            animation: pulse-btn 2s infinite;
         }
         .btn-lucky:hover { transform: scale(1.05); }
 
-        /* --- QR CODE & DOWNLOAD (ĐÃ SỬA VỊ TRÍ) --- */
-        .qr-section-title { color: #d00000; font-weight: bold; margin-top: 5px; font-size: 16px; }
-        .qr-wrapper {
-            position: relative; display: flex; justify-content: center; align-items: center;
-            margin-top: 10px; gap: 15px; /* Khoảng cách giữa QR và nút tải */
-        }
-        .qr-img { 
-            width: 140px; height: 140px; 
-            border: 3px solid #ffcc00; border-radius: 10px; 
-            cursor: zoom-in; transition: transform 0.2s; background: white;
-        }
-        .qr-img:hover { transform: scale(1.02); }
-        
-        /* Nút Download nằm bên cạnh */
-        .btn-download-side {
-            width: 40px; height: 40px;
-            background: #d00000; color: #fff;
-            border-radius: 50%;
-            display: flex; justify-content: center; align-items: center;
-            text-decoration: none; font-size: 20px;
-            border: 2px solid #fff;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-            transition: transform 0.2s;
-        }
-        .btn-download-side:hover { transform: scale(1.1); background: #ff0000; }
-        .click-zoom-hint { font-size: 11px; color: #888; margin-top: 5px; font-style: italic; }
-
-        /* --- MODAL XIN LỘC (THẺ MAY MẮN) --- */
+        /* --- 6. MODAL XIN LỘC --- */
         #luckyModal {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.8); z-index: 1000;
+            background: rgba(0, 0, 0, 0.85); z-index: 1000;
             justify-content: center; align-items: center;
             animation: fadeIn 0.3s;
         }
         .lucky-card {
-            background: #fff; width: 320px; padding: 20px; border-radius: 15px;
+            background: #fff; width: 320px; padding: 25px; border-radius: 15px;
             text-align: center; border: 4px solid #ffd700;
-            box-shadow: 0 0 50px rgba(255, 215, 0, 0.8);
-            position: relative;
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
             background-image: url('data:image/svg+xml,<svg width="20" height="20" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1" fill="%23ffd700" opacity="0.3"/></svg>');
+            transform: scale(0.8); animation: zoomIn 0.3s forwards;
         }
-        .lucky-title { color: #d00000; font-size: 24px; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; }
+        @keyframes zoomIn { to { transform: scale(1); } }
+
+        .lucky-title { color: #d00000; font-size: 26px; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; }
         .lucky-badge { 
             display: inline-block; background: #d00000; color: #ffd700; 
-            padding: 5px 15px; border-radius: 20px; font-weight: bold; margin-bottom: 15px;
+            padding: 5px 15px; border-radius: 20px; font-weight: bold; margin-bottom: 20px;
         }
-        .lucky-text { font-size: 15px; color: #333; line-height: 1.6; margin-bottom: 20px; }
-        .btn-close-lucky {
-            background: #333; color: #fff; border: none; padding: 8px 20px;
-            border-radius: 5px; cursor: pointer; font-weight: bold;
+        .lucky-text { font-size: 16px; color: #333; line-height: 1.6; margin-bottom: 25px; text-align: left; padding: 0 10px; }
+        
+        .btn-get-money {
+            background: linear-gradient(to right, #d00000, #ff0000); 
+            color: #fff; border: none; padding: 12px 30px;
+            border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 16px;
+            box-shadow: 0 4px 10px rgba(208, 0, 0, 0.4);
+            transition: transform 0.2s;
         }
+        .btn-get-money:hover { transform: scale(1.05); }
 
-        /* --- 7. LIGHTBOX (PHÓNG TO ẢNH) --- */
-        #lightbox {
+        /* --- 7. MÀN HÌNH QR CODE (FULL SCREEN OVERLAY) --- */
+        #qrOverlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.9); z-index: 999;
+            background: rgba(0, 0, 0, 0.95); z-index: 2000; /* Cao nhất */
             justify-content: center; align-items: center; flex-direction: column;
-            animation: fadeIn 0.3s;
+            animation: fadeIn 0.5s;
         }
-        #lightbox img { max-width: 90%; max-height: 80%; border: 2px solid white; border-radius: 10px; }
-        #lightbox .close-hint { color: white; margin-top: 15px; font-size: 14px; opacity: 0.8; }
+        
+        /* Nút Close X */
+        .btn-close-qr {
+            position: absolute; top: 30px; right: 30px;
+            color: #fff; font-size: 40px; cursor: pointer;
+            opacity: 0.8; transition: 0.3s;
+        }
+        .btn-close-qr:hover { opacity: 1; transform: scale(1.1); }
 
-        /* --- 8. HIỆU ỨNG NỀN --- */
+        /* Tiêu đề QR */
+        .qr-title-large { 
+            color: #ffd700; font-size: 28px; font-weight: bold; 
+            margin-bottom: 30px; text-transform: uppercase; letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        /* Ảnh QR Trung Tâm */
+        .qr-img-large {
+            width: 250px; height: 250px;
+            border: 4px solid #ffd700; border-radius: 15px;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.3);
+            background: white; margin-bottom: 15px;
+        }
+
+        /* Note bên dưới */
+        .qr-note {
+            color: #fff; font-style: italic; font-size: 16px;
+            margin-bottom: 30px; opacity: 0.9;
+        }
+
+        /* Nút Tải về bên dưới */
+        .btn-download-bottom {
+            display: flex; align-items: center; gap: 10px;
+            padding: 10px 25px;
+            background: transparent; border: 2px solid #ffd700;
+            color: #ffd700; border-radius: 50px;
+            text-decoration: none; font-weight: bold; font-size: 16px;
+            transition: 0.3s;
+        }
+        .btn-download-bottom:hover {
+            background: #ffd700; color: #d00000;
+        }
+
+        /* --- EFFECTS --- */
         .flower { position: absolute; top: -10vh; z-index: 10; pointer-events: none; opacity: 0.8; }
         .firework-shell { position: absolute; top: 0; left: 0; pointer-events: none; z-index: 5; }
         .firework-particle { position: absolute; border-radius: 50%; animation: realistic-burst 1.2s ease-out forwards, twinkle 0.2s infinite alternate; }
@@ -169,22 +188,34 @@
 
 <body onclick="playAudioForce()">
 
-    <div id="lightbox" onclick="closeLightbox()">
-        <img id="lightbox-img" src="" alt="QR Full Size">
-        <div class="close-hint">Chạm vào màn hình để đóng</div>
+    <div id="qrOverlay">
+        <div class="btn-close-qr" onclick="closeQR()">×</div>
+        
+        <div class="qr-title-large">Lì xì may mắn</div>
+        
+        <img src="qr-viettel.jpg" alt="QR Code" class="qr-img-large">
+        
+        <div class="qr-note">(Quét bằng APP Viettel Money nha)</div>
+        
+        <a href="qr-viettel.jpg" download="LiXi_Tet_2026.jpg" class="btn-download-bottom">
+            <span>⬇️</span> Tải mã QR về
+        </a>
     </div>
 
-    <div id="luckyModal" onclick="closeLucky()">
-        <div class="lucky-card" onclick="event.stopPropagation()"> <div class="lucky-title">Quẻ Đầu Năm</div>
+    <div id="luckyModal">
+        <div class="lucky-card">
+            <div class="lucky-title">Quẻ Đầu Năm</div>
             <div class="lucky-badge">Thượng Thượng Cát</div>
             <div class="lucky-text">
                 <b>🌸 Sự Nghiệp:</b> Như diều gặp gió, quý nhân phù trợ.<br>
                 <b>❤️ Tình Duyên:</b> Viên mãn, ngọt ngào, thấu hiểu.<br>
                 <b>✨ Tài Lộc:</b> Sung túc, tiền vào như nước.<br>
                 <br>
-                <i>"Năm nay Bính Ngọ đại thành công<br>Vạn sự an nhiên, thỏa ước mong!"</i>
+                <div style="text-align: center; font-style: italic; color: #d00000;">
+                    "Năm nay Bính Ngọ đại thành công<br>Vạn sự an nhiên, thỏa ước mong!"
+                </div>
             </div>
-            <button class="btn-close-lucky" onclick="closeLucky()">Nhận Lộc 🙏</button>
+            <button class="btn-get-money" onclick="revealQR()">Nhận Lộc Ngay 🧧</button>
         </div>
     </div>
 
@@ -213,19 +244,6 @@
         <div class="btn-lucky" onclick="openLucky()">
             ✨ Rút Quẻ Lộc Đầu Năm 🧧
         </div>
-
-        <div style="border-top: 1px dashed #ffcc00; margin: 10px 0;"></div>
-
-        <div class="qr-section-title">Lì xì may mắn đầu xuân nha</div>
-        
-        <div class="qr-wrapper">
-            <img src="qr-viettel.jpg" alt="QR Code" class="qr-img" onclick="openLightbox(event)">
-            
-            <a href="qr-viettel.jpg" download="LiXi_Tet_2026.jpg" class="btn-download-side" title="Tải mã QR">
-                ⬇️
-            </a>
-        </div>
-        <div class="click-zoom-hint">(Chạm vào ảnh để phóng to)</div>
     </div>
 
     <audio id="tetMusic" loop>
@@ -270,18 +288,26 @@
             document.getElementById('content').style.display = 'block';
         }
 
-        // --- XỬ LÝ LIGHTBOX ---
-        function openLightbox(event) {
-            event.stopPropagation();
-            var imgSrc = document.querySelector('.qr-img').src;
-            document.getElementById('lightbox-img').src = imgSrc;
-            document.getElementById('lightbox').style.display = 'flex';
+        // --- LOGIC MỚI: RÚT QUẺ & HIỆN QR OVERLAY ---
+        function openLucky() {
+            document.getElementById('luckyModal').style.display = 'flex';
         }
-        function closeLightbox() { document.getElementById('lightbox').style.display = 'none'; }
 
-        // --- XỬ LÝ QUẺ LỘC ---
-        function openLucky() { document.getElementById('luckyModal').style.display = 'flex'; }
-        function closeLucky() { document.getElementById('luckyModal').style.display = 'none'; }
+        function revealQR() {
+            // Ẩn modal rút quẻ
+            document.getElementById('luckyModal').style.display = 'none';
+            // Ẩn màn hình lời chúc (Content)
+            document.getElementById('content').style.display = 'none';
+            // Hiện màn hình QR Overlay
+            document.getElementById('qrOverlay').style.display = 'flex';
+        }
+
+        function closeQR() {
+            // Ẩn màn hình QR
+            document.getElementById('qrOverlay').style.display = 'none';
+            // Hiện lại màn hình lời chúc
+            document.getElementById('content').style.display = 'block';
+        }
 
         // --- HIỆU ỨNG ---
         function createFlower() {
