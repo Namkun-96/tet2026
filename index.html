@@ -6,96 +6,107 @@
     <title>Chúc Mừng Năm Mới 2026</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🧧</text></svg>">
     <style>
-        /* --- CẤU HÌNH GIAO DIỆN --- */
+        /* --- 1. CẤU HÌNH NỀN ĐỎ HỒNG --- */
         body {
             margin: 0; padding: 0; display: flex; justify-content: center; align-items: center;
             height: 100vh;
-            /* Sử dụng nền đỏ gradient mặc định cho tưng bừng */
-            background: linear-gradient(135deg, #d41414 0%, #ff9a00 100%);
-            /* Nếu bạn upload ảnh background-ngua.jpg, dòng dưới sẽ ghi đè lên nền đỏ */
-            background-image: url('background-ngua.jpg'); 
-            background-position: center center;
-            background-size: cover;
-            background-repeat: no-repeat;
+            /* Màu nền chuyển từ Đỏ thắm sang Hồng đào */
+            background: linear-gradient(135deg, #d41414 0%, #ff6b6b 100%);
             font-family: 'Segoe UI', Roboto, Arial, sans-serif;
             overflow: hidden; text-align: center; color: white;
         }
         
-        /* Lớp phủ tối màu */
+        /* Hiệu ứng hạt sáng lấp lánh nền */
         .overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.4); /* Tối đi 40% */
-            z-index: 0;
+            background-image: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px; /* Chấm bi mờ */
+            pointer-events: none;
         }
 
-        /* --- BAO LÌ XÌ --- */
+        /* --- 2. BAO LÌ XÌ (GIAO DIỆN CHÍNH) --- */
         #envelope {
-            width: 280px; height: 380px;
-            background: linear-gradient(135deg, #e60000 0%, #ff3333 100%);
-            border: 5px solid #ffcc00; /* Viền vàng */
-            border-radius: 25px; cursor: pointer; display: flex; flex-direction: column;
+            width: 280px; height: 400px; /* Tăng chiều cao để chứa đủ icon và số */
+            background: linear-gradient(to bottom, #ff0000, #b30000);
+            border: 4px solid #ffcc00;
+            border-radius: 20px; cursor: pointer; display: flex; flex-direction: column;
             justify-content: center; align-items: center;
-            box-shadow: 0 15px 40px rgba(255, 204, 0, 0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             transition: transform 0.3s; z-index: 10; position: relative;
         }
         #envelope:hover { transform: scale(1.05); }
         
-        /* Số 2026 trên bao lì xì */
-        .envelope-year {
-            font-size: 60px; font-weight: bold; color: #ffcc00;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            border: 4px solid #ffcc00; padding: 10px 20px; border-radius: 15px;
-            background: rgba(161, 14, 14, 0.8);
-            margin-bottom: 20px;
+        /* Icon Phong bao to */
+        .envelope-icon {
+            font-size: 80px; 
+            margin-bottom: -10px;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.3));
         }
 
-        #envelope h2 { font-size: 20px; color: #ffcc00; margin-top: 10px; padding: 0 15px; line-height: 1.5; }
+        /* Số 2026 Vàng kim */
+        .year-text {
+            font-size: 45px; font-weight: 900; color: #ffcc00;
+            text-shadow: 2px 2px 0px #8b0000;
+            font-family: 'Arial Black', sans-serif;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
 
-        /* --- NỘI DUNG BÊN TRONG --- */
+        /* Dòng chữ hướng dẫn */
+        .click-hint { 
+            font-size: 18px; color: #fff; margin-top: 5px; 
+            font-weight: 500; padding: 0 10px;
+        }
+        .click-hint-small { font-size: 13px; opacity: 0.8; margin-top: 5px; }
+
+        /* --- 3. NỘI DUNG BÊN TRONG (SAU KHI MỞ) --- */
         #content {
             display: none; background: #fffaf0;
             padding: 30px 20px; border-radius: 20px;
-            box-shadow: 0 0 60px rgba(255, 204, 0, 0.7);
+            box-shadow: 0 0 60px rgba(255, 204, 0, 0.8);
             max-width: 90%; width: 380px;
-            animation: popIn 0.7s cubic-bezier(0.34, 1.56, 0.64, 1);
+            animation: popIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             z-index: 10; color: #b30000; position: relative;
-            border: 4px solid #d41414;
+            border: 3px solid #d41414;
         }
-        @keyframes popIn { 0% { opacity: 0; transform: scale(0.5) translateY(50px); } 100% { opacity: 1; transform: scale(1) translateY(0); } }
+        @keyframes popIn { 0% { opacity: 0; transform: scale(0.5); } 100% { opacity: 1; transform: scale(1); } }
 
-        h1.title-tet { color: #d00000; font-size: 26px; font-weight: bold; margin-bottom: 10px; }
-        .horse-icon { font-size: 35px; margin: 10px 0; letter-spacing: 10px; filter: drop-shadow(2px 2px 2px rgba(0,0,0,0.2)); }
+        h1.title-tet { color: #d00000; font-size: 26px; font-weight: bold; margin-bottom: 5px; }
+        .horse-icon { font-size: 35px; margin: 5px 0; letter-spacing: 10px; }
         
         .wishes { 
-            font-size: 17px; line-height: 1.6; color: #333; 
+            font-size: 16px; line-height: 1.5; color: #333; 
             font-style: italic; font-weight: 600;
-            background: #fff; padding: 15px; border-radius: 12px;
-            border: 2px dashed #d00000; margin: 20px 0;
+            background: #fff; padding: 12px; border-radius: 10px;
+            border: 1px dashed #d00000; margin: 15px 0;
         }
 
-        .qr-section-title { color: #d00000; font-weight: bold; margin-top: 25px; font-size: 19px; }
-        .qr-img { width: 190px; height: 190px; border: 4px solid #ffcc00; border-radius: 12px; margin: 15px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+        .qr-section-title { color: #d00000; font-weight: bold; margin-top: 15px; font-size: 18px; }
+        .qr-img { width: 180px; height: 180px; border: 3px solid #ffcc00; border-radius: 10px; margin: 10px 0; }
 
         .btn-download {
-            display: inline-block; padding: 12px 25px;
-            background: linear-gradient(to right, #d00000, #ff3333); color: #ffcc00; 
-            text-decoration: none; font-weight: bold; border-radius: 30px; margin-top: 10px;
-            box-shadow: 0 5px 15px rgba(208, 0, 0, 0.4); transition: 0.3s; font-size: 16px;
+            display: inline-block; padding: 10px 20px;
+            background: #d00000; color: #fff; 
+            text-decoration: none; font-weight: bold; border-radius: 50px; margin-top: 5px;
+            border: 2px solid #ffcc00;
         }
-        .btn-download:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(208, 0, 0, 0.6); }
 
         /* Hiệu ứng vật thể rơi */
-        .falling-item { position: absolute; top: -10vh; z-index: 5; pointer-events: none; }
+        .falling-item { position: absolute; top: -10vh; z-index: 1; pointer-events: none; }
     </style>
 </head>
+
 <body onclick="playAudioForce()">
 
     <div class="overlay"></div>
 
     <div id="envelope" onclick="openGift()">
-        <div class="envelope-year">2026</div>
-        <h2>Ấn vào đây để nhận <br> điều bất ngờ nha ^^</h2>
-        <div style="margin-top: 15px; font-size: 32px;">🐎💨</div>
+        <div class="envelope-icon">🧧</div>
+        
+        <div class="year-text">2026</div>
+        
+        <div class="click-hint">Ấn vào đây để nhận <br> điều bất ngờ nha ^^</div>
+        <div class="click-hint-small">(Chạm nhẹ để mở)</div>
     </div>
 
     <div id="content">
@@ -107,15 +118,15 @@
         </div>
 
         <div class="qr-section-title">Lì xì may mắn đầu xuân nha</div>
-        <img src="qr-viettel.jpg" alt="QR Code Viettel Money" class="qr-img">
+        <img src="qr-viettel.jpg" alt="QR Code" class="qr-img">
         
         <br>
-        <a href="qr-viettel.jpg" download="LiXi_Tet_BinhNgo_2026.jpg" class="btn-download">
+        <a href="qr-viettel.jpg" download="LiXi_Tet_2026.jpg" class="btn-download">
             ⬇️ Tải ảnh về máy
         </a>
     </div>
 
-    <audio id="tetMusic" loop preload="auto">
+    <audio id="tetMusic" loop>
         <source src="nhac-tet.mp3" type="audio/mpeg">
     </audio>
 
@@ -123,64 +134,56 @@
         var music = document.getElementById('tetMusic');
         var isPlaying = false;
 
-        // --- 1. Cố gắng phát nhạc ngay khi tải trang ---
         window.onload = function() {
-            // Cố gắng phát nhạc (thường sẽ bị chặn trên điện thoại)
-            music.play().then(() => { isPlaying = true; }).catch(e => { console.log("Auto-play bị chặn, chờ tương tác."); });
+            // Hiệu ứng rơi ngay khi vào
+            setInterval(createFallingItem, 300);
             
-            // Bắt đầu mưa vật thể ngay lập tức
-            setInterval(createFallingItem, 350); // Tốc độ rơi vừa phải
+            // Cố gắng phát nhạc (nếu trình duyệt cho phép)
+            music.play().then(() => { isPlaying = true; }).catch(() => {});
         };
 
-        // --- 2. Hàm kích hoạt nhạc khi chạm vào màn hình ---
         function playAudioForce() {
             if (!isPlaying) {
-                music.play().then(() => { isPlaying = true; });
+                music.play();
+                isPlaying = true;
             }
         }
 
-        // --- 3. Xử lý mở quà ---
         function openGift() {
-            playAudioForce(); // Đảm bảo nhạc chạy
+            playAudioForce();
             document.getElementById('envelope').style.display = 'none';
             document.getElementById('content').style.display = 'block';
         }
 
-        // --- 4. Hiệu ứng rơi (Hoa + Ngựa + Số 2026) ---
         function createFallingItem() {
             const item = document.createElement('div');
             item.className = 'falling-item';
 
-            // Random chọn vật thể rơi
             const rand = Math.random();
-            if (rand < 0.4) {
-                item.innerHTML = Math.random() > 0.5 ? '🌸' : '💮'; // 40% là hoa
-                item.style.fontSize = (Math.random() * 20 + 15) + 'px';
-            } else if (rand < 0.7) {
-                item.innerHTML = '🐎'; // 30% là ngựa
+            if (rand < 0.3) {
+                item.innerHTML = '🌸';
+                item.style.fontSize = (Math.random() * 20 + 10) + 'px';
+            } else if (rand < 0.6) {
+                item.innerHTML = '🐎';
                 item.style.fontSize = (Math.random() * 25 + 20) + 'px';
+            } else if (rand < 0.8) {
+                item.innerHTML = '🧧';
+                item.style.fontSize = (Math.random() * 20 + 15) + 'px';
             } else {
-                // 30% là số 2026
-                item.innerHTML = '<span style="font-weight:bold; color:#ffcc00; text-shadow: 1px 1px 2px red; font-family: Arial;">2026</span>';
-                item.style.fontSize = (Math.random() * 15 + 12) + 'px';
+                item.innerHTML = '<b style="color:#ffcc00; text-shadow:1px 1px 0 #d00000; font-family:Arial;">2026</b>';
+                item.style.fontSize = (Math.random() * 15 + 10) + 'px';
             }
 
-            // Random vị trí và thời gian rơi
             item.style.left = Math.random() * 100 + 'vw';
-            item.style.opacity = Math.random() * 0.5 + 0.5;
+            item.style.opacity = Math.random() * 0.6 + 0.4;
             
-            const duration = Math.random() * 5 + 6; // Rơi từ 6s đến 11s
+            const duration = Math.random() * 5 + 5;
             item.style.animation = `fall ${duration}s linear forwards`;
 
             document.body.appendChild(item);
             
-            // CSS Animation động
             const style = document.createElement('style');
-            style.innerHTML = `
-                @keyframes fall {
-                    to { transform: translateY(110vh) rotate(${Math.random() * 360 - 180}deg); }
-                }
-            `;
+            style.innerHTML = `@keyframes fall { to { transform: translateY(110vh) rotate(${Math.random() * 360}deg); } }`;
             document.head.appendChild(style);
 
             setTimeout(() => { item.remove(); style.remove(); }, duration * 1000);
